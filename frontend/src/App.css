@@ -1,0 +1,859 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7ff;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================
+   MAIN APP
+========================================= */
+
+.app {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #f8faff
+    );
+}
+
+
+/* =========================================
+   NORMAL BACKGROUND
+========================================= */
+
+.background-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(5px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.circle-one {
+    width: 350px;
+    height: 350px;
+
+    background: #c7d2fe;
+
+    top: -150px;
+    left: -100px;
+}
+
+.circle-two {
+    width: 400px;
+    height: 400px;
+
+    background: #ddd6fe;
+
+    bottom: -200px;
+    right: -150px;
+}
+
+
+/* =========================================
+   AI SPEAKING GLOW
+========================================= */
+/* =========================================
+   AI SPEAKING GLOW
+========================================= */
+
+.app.ai-speaking::before {
+    content: "";
+
+    position: absolute;
+
+    width: 750px;
+    height: 750px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(99, 102, 241, 0.65) 0%,
+        rgba(139, 92, 246,0.40 ) 25%,
+        rgba(99, 102, 241, 0.20) 45%,
+        rgba(139, 92, 246, 0.08) 60%,
+        transparent 5%
+    );
+
+    /* filter: blur(20px); */
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    animation: aiBackgroundGlow 2s ease-in-out infinite;
+}
+
+
+.app.ai-speaking::after {
+    content: "";
+
+    position: absolute;
+
+    width: 1000px;
+    height: 1000px;
+
+    top: 50%;
+    left: 50%;
+
+    /* transform: translate(-50%, -50%); */
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(129, 140, 248, 0.30) 100%,
+        rgba(139, 92, 246, 0.15) 100%,
+        transparent 18%
+    );
+
+    /* filter: blur(35px); */
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation: aiAmbientGlow 3s ease-in-out infinite;
+}
+
+
+/* =========================================
+   MAIN GLOW ANIMATION
+========================================= */
+/* 
+@keyframes aiBackgroundGlow {
+
+    0% {
+        transform: translate(-50%, -50%) scale(0.75);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(0.75);
+        opacity: 0.5;
+    }
+} */
+
+
+/* =========================================
+   SOFT AMBIENT GLOW
+========================================= */
+
+@keyframes aiAmbientGlow {
+
+    0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.3;
+    }
+}
+
+
+/* =========================================
+   MAIN CHAT
+========================================= */
+
+.chat-container {
+    width: min(950px, calc(100% - 40px));
+
+    height: min(720px, calc(100vh - 40px));
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 70px rgba(55, 65, 120, 0.15);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: visible;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    height: 85px;
+    min-height: 85px;
+
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eeeeee;
+
+    background: white;
+}
+
+.teacher-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.teacher-avatar {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+.teacher-profile h2 {
+    font-size: 18px;
+    color: #171717;
+    margin-bottom: 5px;
+}
+
+.online-status {
+    font-size: 12px;
+    color: #777;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.online-status span {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+}
+
+.level {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.level span {
+    font-size: 11px;
+    color: #999;
+}
+
+.level strong {
+    font-size: 13px;
+    color: #6366f1;
+}
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.chat-area {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 35px;
+}
+
+
+/* Scrollbar */
+
+.chat-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-area::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome {
+    max-width: 600px;
+
+    margin: 50px auto;
+
+    text-align: center;
+}
+
+.welcome-icon {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 24px;
+
+    background: #eef2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 35px;
+}
+
+.welcome h1 {
+    font-size: 32px;
+
+    color: #171717;
+
+    margin-bottom: 12px;
+}
+
+.welcome p {
+    color: #777;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   SUGGESTIONS
+========================================= */
+
+.suggestions {
+    margin-top: 28px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.suggestions button {
+    border: 1px solid #e5e7eb;
+
+    background: white;
+
+    padding: 11px 15px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: #555;
+
+    transition: 0.2s;
+}
+
+.suggestions button:hover {
+    border-color: #818cf8;
+
+    color: #6366f1;
+
+    background: #f8f8ff;
+}
+
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.message {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    align-items: flex-end;
+}
+
+.message-avatar {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 12px;
+
+    background: #f3f4f6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    position: relative;
+}
+
+.ai-avatar {
+    background: #eef2ff;
+}
+
+
+/* =========================================
+   AI AVATAR SPEAKING
+========================================= */
+
+.avatar-speaking {
+    animation: avatarPulse 1.2s ease-in-out infinite;
+}
+
+.avatar-speaking::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -6px;
+
+    border-radius: 15px;
+
+    border: 2px solid rgba(99, 102, 241, 0.6);
+
+    animation: avatarRing 1.4s ease-out infinite;
+}
+
+@keyframes avatarPulse {
+
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow:
+            0 0 25px rgba(99, 102, 241, 0.5);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+@keyframes avatarRing {
+
+    0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+
+.message-content {
+    max-width: 70%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.message-name {
+    font-size: 11px;
+
+    color: #999;
+
+    margin-bottom: 6px;
+}
+
+.bubble {
+    padding: 14px 17px;
+
+    border-radius: 17px;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+.user-bubble {
+    background: #6366f1;
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+.ai-bubble {
+    background: #f4f5f9;
+
+    color: #333;
+
+    border-bottom-left-radius: 5px;
+}
+
+
+/* =========================================
+   SPEAKER BUTTON
+========================================= */
+
+.speak-button {
+    border: none;
+
+    background: transparent;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    margin-left: 8px;
+
+    padding: 3px 6px;
+
+    transition: 0.2s;
+}
+
+.speak-button:hover {
+    transform: scale(1.15);
+}
+
+
+/* =========================================
+   TYPING
+========================================= */
+
+.typing {
+    display: flex;
+
+    gap: 5px;
+
+    padding: 17px 20px;
+}
+
+.typing span {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #999;
+
+    animation: typing 1.2s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.input-section {
+    padding: 18px 25px 20px;
+
+    border-top: 1px solid #eeeeee;
+
+    background: white;
+}
+
+.input-wrapper {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: #f6f7fb;
+
+    border: 1px solid #e5e7eb;
+
+    padding: 7px 8px 7px 18px;
+
+    border-radius: 17px;
+
+    transition: 0.2s;
+}
+
+.input-wrapper:focus-within {
+    border-color: #818cf8;
+
+    box-shadow: 0 0 0 3px #eef2ff;
+}
+
+.input-wrapper input {
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 14px;
+
+    color: #333;
+
+    min-width: 0;
+}
+
+.input-wrapper input::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================================
+   SEND BUTTON
+========================================= */
+
+.send-button {
+    width: 43px;
+    height: 43px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    flex-shrink: 0;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(99, 102, 241, 0.25);
+}
+
+.send-button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   MIC BUTTON
+========================================= */
+
+.mic-button {
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    padding: 2px;
+
+    transition: transform 0.2s ease;
+
+    flex-shrink: 0;
+}
+
+.mic-button:hover {
+    transform: scale(1.15);
+}
+
+.mic-button.listening {
+    animation: micPulse 1s infinite;
+}
+
+@keyframes micPulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================
+   INPUT HINT
+========================================= */
+
+.input-hint {
+    text-align: center;
+
+    font-size: 10px;
+
+    color: #aaa;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .app {
+        padding: 0;
+    }
+
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+
+        border-radius: 0;
+    }
+
+    .header {
+        padding: 0 18px;
+    }
+
+    .level {
+        display: none;
+    }
+
+    .chat-area {
+        padding: 20px;
+    }
+
+    .welcome {
+        margin: 40px auto;
+    }
+
+    .welcome h1 {
+        font-size: 25px;
+    }
+
+    .message-content {
+        max-width: 82%;
+    }
+
+    .suggestions {
+        flex-direction: column;
+    }
+
+    .suggestions button {
+        width: 100%;
+    }
+
+    .input-section {
+        padding: 12px 15px 15px;
+    }
+}
