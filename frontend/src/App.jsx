@@ -409,7 +409,7 @@ function App() {
 
         try {
             const response = await axios.post(
-                "http://localhost:5001/api/chat",
+                "https://english-sathi.onrender.com/api/chat",
                 {
                     message: userText
                 }
